@@ -1,0 +1,6 @@
+useTabs: false #使用 tab | space缩进，false表示space缩进
+tabWidth: 2 # tab是空格的情况下，是几个空格，默认是2个
+printWidth: 80 # 当行字符的长度
+trailingComma: 'none' # 在多行输入末尾是否添加一个,
+semi: false
+singleQuote: true

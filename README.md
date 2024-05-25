@@ -1,46 +1,198 @@
-# Getting Started with Create React App
+# React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 配置别名,import App from '@/App'
 
-## Available Scripts
+- npm i -D @craco/craco
+- npm i -D @craco/types
 
-In the project directory, you can run:
+#### 项目根目录创建 `craco.config.js`文件
 
-### `npm start`
+```
+# craco.config.js
+const path = require('path')
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+const resolve = dir => path.resolve(__dirname,dir)
+module.exports = {
+    webpack:{
+        alias:{
+            "@":resolve('src')
+        }
+    }
+}
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
 
-### `npm test`
+```
+# index.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from '@/App'; # 别名引入，这里ts会报错，还需要在tsconfig.json中做相应配置
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
-### `npm run build`
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+# tsconfig.json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".", # tsconfig.json文件所在目录 ，新增为了在ts中使用别名引入时不报错
+    "paths": { # 新增为了在ts中使用别名引入时不报错
+      "@/*": [
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ]
+}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+别名配置结束
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 集成editorconfig
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[官网](https://editorconfig.org/)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+root = true
 
-## Learn More
+[*] # 表示所有文件适用
+charset = utf-8
+indent_style = space # 缩进网络(tab | space)
+indent_size = 2 # 缩进大小
+end_of_line = lf # 控制换行类型
+trim_trailing_whitespace = true # 去除末尾的人任意空白字符
+insert_final_newline = true # 始终在文件末尾插入新行
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+[*.{js,py,ts,html,jsx,tsx}]
+charset = utf-8
+
+# 4 space indentation
+[*.{js,py,ts,html,jsx,tsx}]
+indent_style = space
+indent_size = 4
+
+# Tab indentation (no size specified)
+[Makefile]
+indent_style = tab
+
+
+indent_style = space
+indent_size = 2
+
+[{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2
+```
+
+editorconfig配置结束
+
+---
+
+### prettier配置
+
+[官网](https://prettier.io/docs/en/install)
+
+- npm i prettier -D # 开发时依赖
+- 在项目要目录下创建 `.prettierrc` 文件
+
+```
+# .prettierrc
+useTabs: false #使用 tab | space缩进，false表示space缩进
+tabWidth: 2 # tab是空格的情况下，是几个空格，默认是2个
+printWidth: 80 # 当行字符的长度
+trailingComma: "none" # 在多行输入末尾是否添加一个,
+semi: false
+singleQuote: true
+
+```
+
+- 创建prettier忽略文件(类似.gitignore)
+
+#### 修改package.json文件中的scripts
+
+```
+  "scripts": {
+    "start": "craco  start",
+    "build": "craco  build",
+    "test": "craco  test",
+    "eject": "craco   eject",
+    "prettier": "prettier --write ."  # 新增
+  },
+```
+
+prettier配置结束
+
+---
+
+### eslint配置（好像配置失败了）
+
+#### 安装eslint
+
+- npm i eslint -D
+
+#### eslint init
+
+- npx eslint --init
+- npm i eslint-plugin-prettier eslint-config-prettier -D
+```
+# .eslintrc.js文件内容，老板
+module.exports = {
+  env: {
+    browser: true,
+    node: true
+  },
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended'
+  ],
+  overrides: [],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module'
+  },
+  plugins: ['react'],
+  rules: {}
+}
+
+```
