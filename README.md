@@ -196,3 +196,81 @@ module.exports = {
 }
 
 ```
+
+
+---
+
+# 样式重置
+- npm i normalize.css
+
+## 配置less使用
+- npm i craco-less
+```
+const path = require('path')
+const CracoLess = require('craco-less') # +++
+
+const resolve = (dir) => path.resolve(__dirname, dir)
+module.exports = {
+    plugins:[
+        {
+            plugin:CracoLess   # ++++
+        }
+    ],
+  webpack: {
+    alias: {
+      '@': resolve('src')
+    }
+  }
+}
+
+```
+
+# 路由
+- npm i react-router-dom
+> 注意在使用路由时会有隐式的any类型，ts检测会报错，需要在tsconfig.json 添加 `"noImplicitAny": false`
+
+- 当配置了路由懒加载时，需要用Suspense包裹
+
+- 多层嵌套路由懒加载的时候，最好都用<Suspense></Suspense>包裹，不然页面会闪烁(loading)
+
+# redux
+- npm install @reduxjs/toolkit react-redux
+- 使用`configureStore`创建store
+- 在根组件上使用`Provider`包裹并配置`store`属性
+
+```
+import { configureStore } from '@reduxjs/toolkit'
+import counter from '@/store/modules/counter'
+import { useSelector, TypedUseSelectorHook, useDispatch, shallowEqual } from 'react-redux'
+
+
+// 创建store
+const store = configureStore({
+    reducer:{
+        counter:counter
+    }
+})
+
+type GetStateFnType =typeof store.getState
+type IRootState = ReturnType<GetStateFnType>
+
+type DispatchType = typeof store.dispatch
+type IRootDispatch = ReturnType<DispatchType>
+
+
+
+// 基于原有的useSelector，定义一个新的，并添加类型约束，引入的时候 就能自动推导state类型了
+// 主要是useAppSelector,下面这两个只是为了统一导入
+export const useAppSelector:TypedUseSelectorHook<IRootState> = useSelector
+
+// useDispatch()返回的是一个dispatch函数，所以这里只需要获取函数类型
+export const useAppDispatch:()=> DispatchType= useDispatch
+
+export const appShallowEqual = shallowEqual
+export default store
+
+
+```
+
+# axios
+- npm i axios

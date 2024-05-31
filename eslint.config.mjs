@@ -13,6 +13,10 @@ export default [
             sourceType: 'module',
 
         },
+      rules: {
+        "@typescript-eslint/no-var-requires":'off',
+        "@typescript-eslint/no-explicit-any":'off',
+      },
 
         plugins: ['react', 'eslint:recommended',
             'plugin:react/recommended',
