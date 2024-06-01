@@ -1,9 +1,6 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
 import type { HYRequestConfig } from '@/service/request/type'
-import { Simulate } from 'react-dom/test-utils'
-import error = Simulate.error
-import { memo } from 'react'
-import { meta } from 'eslint-plugin-prettier'
+
 
 
 class HYRequest {
@@ -58,7 +55,7 @@ class HYRequest {
         })
     }
 
-    get<T =any>(config:HYRequestConfig<T>){
+    get<T =any>(config:HYRequestConfig<T>) {
         return this.request({...config,method:"GET"})
     }
     post<T = any>(config:HYRequestConfig<T>){

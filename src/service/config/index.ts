@@ -1,11 +1,10 @@
-import * as process from 'process'
 
 export const BASE_URL = "http://codercba.com:9002"
 
 export const TIMEOUT = 10000
 
 console.log(process.env.NODE_ENV)
-
+console.log(process.env)
 
 
 // 方法1 webpack根据环境使用不同的BASEURL
@@ -25,4 +24,4 @@ console.log(process.env.NODE_ENV)
 // 手动到react-app-env.d.ts中引入的react-scripts文件中加入对应的值,这里就会有提示了
 
 
-console.log(process.env.REACT_APP_BASE_URL)
+// console.log(process.env.REACT_APP_BASE_URL)

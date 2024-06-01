@@ -274,3 +274,40 @@ export default store
 
 # axios
 - npm i axios
+
+# 分区开发和生产环境
+## 方法一
+```
+ // 方法1 webpack根据环境使用不同的BASEURL
+ let BASE_URL = ''
+ if (process.env.NODE_ENV === 'development') {
+   BASE_URL = 'http://codercba.com:9002'
+ } else if (process.env.NODE_ENV === 'production') {
+   BASE_URL = 'http://codercba.prod:9002'
+ }
+
+ export { BASE_URL }
+```
+
+## 方法二
+```
+
+// 方法2,项目根目录下创建两个配置文件
+ .env.development
+ .env.production
+ 上面两个配置文件中定义的变量名必须以及REACT_APP_开头
+ 手动到react-app-env.d.ts中引入的react-scripts文件中加入对应的值,这里就会有提示了
+ declare namespace NodeJS {
+    interface ProcessEnv{ 与源码包中的ProcessEnv同名，会对原有的进行扩展(合并)而不是覆盖
+        readonly REACT_APP_BASE_URL:string
+    }
+}
+
+ 
+// console.log(process.env)  就会输出环境变量，包括我们自己定义的，也会合并到process.env中
+
+
+```
+
+
+352
