@@ -33,7 +33,7 @@ function App() {
     }
 
   return <div className="App">
-      <AppHeader/>
+        <AppHeader/>
       <Suspense fallback={"loading..."}>
           <div className="main">
               {
@@ -44,6 +44,10 @@ function App() {
       <AppFooter/>
 
 
+
+      {/*<h2>当前计数:{count}</h2>*/}
+      {/*<h2>当前消息:{message}</h2>*/}
+      {/*<button onClick={handleChangeMessage}>修改message</button>*/}
 
   </div>
 }

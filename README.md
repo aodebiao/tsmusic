@@ -309,5 +309,19 @@ export default store
 
 ```
 
+# 样式
+- npm install styled-components -D
+```
+ style-components 样式混入，定义主题文件,src/assets/theme/index.ts,其中mixin中的内容是用于混入的
+ 利用 style-components 的ThemeProvider 进入混入，在对应的样式文件中使用
+ 
+ 
+     .content {
+        height: 100px;
+        // 混入
+        ${(props) => props.theme.mixin.wrapv1}
+    }
+    
+```
 
-352
+356
