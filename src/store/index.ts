@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counter from '@/store/modules/counter'
 import { useSelector, TypedUseSelectorHook, useDispatch, shallowEqual } from 'react-redux'
+import recommend from '@/views/discover/c-views/recommend/store/recommend'
 
 
 // 创建store
 const store = configureStore({
     reducer:{
-        counter:counter
+        counter:counter,
+        recommend:recommend
     }
 })
 

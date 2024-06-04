@@ -324,4 +324,6 @@ export default store
     
 ```
 
-356
+# antd
+- npm i antd
+- npm i @ant-design/icons --save

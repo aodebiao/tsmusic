@@ -1,50 +1,25 @@
 import React, { memo, FC, ReactNode, useState, useEffect } from 'react'
 import { AxiosHeaders } from 'axios'
 import hyRequest from '@/service'
+import { useAppDispatch } from '@/store'
+import { fetchBannerDataAction } from '@/views/discover/c-views/recommend/store/recommend'
+import TopBanner from '@/views/discover/c-views/recommend/c-cpns/top-banner'
 
 interface IProps {
     children?: ReactNode
 }
 
 
-export interface IBannerData {
-    imageUrl: string
-    targetId: number
-    targetType: number
-    titleColor: string
-    typeTitle: string
-    url: any
-    exclusive: boolean
-    scm: string
-    bannerBizType: string
-}
-
-
-
 const Recommend: FC<IProps> = () => {
-    const [banners, setBanners] = useState<IBannerData[]>([])
+    // 发起action,获取数据
+    const dispatch = useAppDispatch()
     useEffect(() => {
-      hyRequest
-        .get({
-          url: '/banner',
-          headers: new AxiosHeaders()
-        })
-        .then((res) => {
-          setBanners(res.banners)
-            console.log(res.banners)
-        })
+        dispatch(fetchBannerDataAction())
     }, [])
-
-    // 测试网络请求
     return <div>
-        {
-            banners.map(item => {
-                return (<div key={item.imageUrl}>
-                    {item.imageUrl
-                    }
-                </div>)
-            })
-        }
+
+        <TopBanner/>
+        Recommend
     </div>
 }
 
