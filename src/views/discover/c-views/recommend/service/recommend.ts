@@ -19,9 +19,12 @@ export function getHotRecommend(limit = 30){
     })
 }
 
-export function getNewAlbum(){
+export function getNewAlbum(limit = 10){
     return hyRequest.get({
-        url:'/album/list',
+        url:'/album/newest',
+        params:{
+          limit
+        },
         headers:new AxiosHeaders()
     })
 }

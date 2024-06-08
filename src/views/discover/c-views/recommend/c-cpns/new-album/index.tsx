@@ -3,13 +3,21 @@ import type {FC,ReactNode} from 'react';
 import { AlbumWrapper } from '@/views/discover/c-views/recommend/c-cpns/new-album/style'
 import AreaHeaderV1 from '@/components/area-header-v1'
 import { Carousel } from 'antd'
+import { useAppSelector } from '@/store'
+import NewAlbumItem from '@/components/new-album-item'
 interface IProps {
     children?:ReactNode
 }
 
 const NewAlbum:FC<IProps> = () => {
 
+
     const bannerRef = useRef<ElementRef<typeof Carousel>>(null)
+
+    const {albums} = useAppSelector(state => ({
+        albums:state.recommend.albums
+    }))
+
 
     // 事件处理
     function handlePreClick(){
@@ -29,8 +37,14 @@ const NewAlbum:FC<IProps> = () => {
           <div className="banner">
                 <Carousel ref={bannerRef} dots={false} speed={2000}>
                     {
-                        [1,2].map(item => {
-                            return <h1 key={item}>{item}</h1>
+                        [0,1].map(item => {
+                            return <div className='album-list' key={item}>
+                                {
+                                    albums.slice(item*5,(item+1) * 5).map(album => {
+                                        return <NewAlbumItem key={album.id} itemData={album}/>
+                                    })
+                                }
+                            </div>
                         })
                     }
                 </Carousel>
@@ -41,4 +55,4 @@ const NewAlbum:FC<IProps> = () => {
  );
 };
 
-export default memo(NewAlbum)
+export default  memo(NewAlbum)

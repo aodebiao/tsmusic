@@ -2,7 +2,11 @@ import React, { memo, FC, ReactNode, useState, useEffect } from 'react'
 import { AxiosHeaders } from 'axios'
 import hyRequest from '@/service'
 import { useAppDispatch } from '@/store'
-import { fetchBannerDataAction, fetchHotRecommendDataAction } from '@/views/discover/c-views/recommend/store/recommend'
+import {
+  fetchBannerDataAction,
+  fetchHotRecommendDataAction,
+  fetchNewAlbumAction
+} from '@/views/discover/c-views/recommend/store/recommend'
 import TopBanner from '@/views/discover/c-views/recommend/c-cpns/top-banner'
 import { RecommendWrapper } from '@/views/discover/c-views/recommend/style'
 import HotRecommend from '@/views/discover/c-views/recommend/c-cpns/hot-recommend'
@@ -17,7 +21,8 @@ const Recommend: FC<IProps> = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchBannerDataAction())
-      dispatch(fetchHotRecommendDataAction())
+    dispatch(fetchHotRecommendDataAction())
+    dispatch(fetchNewAlbumAction())
   }, [])
   return (
     <RecommendWrapper>
@@ -25,7 +30,7 @@ const Recommend: FC<IProps> = () => {
       <div className="content wrap-v2">
         <div className="left">
           <HotRecommend />
-            <NewAlbum/>
+          <NewAlbum />
         </div>
         <div className="right">right</div>
       </div>
