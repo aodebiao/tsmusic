@@ -6,6 +6,7 @@ import { fetchBannerDataAction, fetchHotRecommendDataAction } from '@/views/disc
 import TopBanner from '@/views/discover/c-views/recommend/c-cpns/top-banner'
 import { RecommendWrapper } from '@/views/discover/c-views/recommend/style'
 import HotRecommend from '@/views/discover/c-views/recommend/c-cpns/hot-recommend'
+import NewAlbum from '@/views/discover/c-views/recommend/c-cpns/new-album'
 
 interface IProps {
   children?: ReactNode
@@ -24,7 +25,7 @@ const Recommend: FC<IProps> = () => {
       <div className="content wrap-v2">
         <div className="left">
           <HotRecommend />
-          left
+            <NewAlbum/>
         </div>
         <div className="right">right</div>
       </div>
