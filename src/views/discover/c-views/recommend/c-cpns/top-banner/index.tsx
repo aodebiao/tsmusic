@@ -46,7 +46,7 @@ const TopBanner: FC<IProps> = () => {
     }
 
     let bgImageUrl
-    if (currentIndex >= 0 && banners.length > 0){
+    if (currentIndex >= 0 && banners?.length > 0){
         bgImageUrl = banners[currentIndex].imageUrl + "?imageView&blur=40x20"
         console.log(currentIndex,bgImageUrl)
     }
@@ -65,7 +65,7 @@ const TopBanner: FC<IProps> = () => {
               ref={bannerRef}
               beforeChange={handleBeforeChange}
               afterChange={handleAfterChange}>
-            {banners.map((item) => {
+            {banners?.map((item) => {
               return (
                 <div className="banner-item" key={item.imageUrl}>
                   <img className="image" src={item.imageUrl} alt={item.title} />
@@ -76,7 +76,7 @@ const TopBanner: FC<IProps> = () => {
 
            <ul className={'dots'}>
                {
-                   banners.map((item,index) =>{
+                   banners?.map((item,index) =>{
                        return (
                            <li key={item.imageUrl}>
                                <span className={classNames('item',{active:index === currentIndex})}></span>

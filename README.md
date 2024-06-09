@@ -332,4 +332,23 @@ export default store
 # css结构伪类
 
 
+### 利用promise数组和promise.all保证请求顺序与响应顺序一致，保证等待所有请示同时结束
+
+```
+        // 2.将三个结果都拿到，统一放到一个数组中管理
+        // 保障一：获取到所有结果后，再dispatch
+        // 保障二：获取到的结果一定是有正确顺序的
+        const promises:Promise<any>[] = []
+        for (let id of rankingIds) {
+            // getPlayListDetail(id) 网络请求
+            promises.push(getPlayListDetail(id))
+        }
+        Promise.all(promises).then(res => {
+            // res是个数组，顺序和上面 promises.push(getPlayListDetail(id)) 一致
+            console.log(res,'11111')
+            const playlists = res.map(item => item.playlist)
+            dispatch(changeRankingsAction(playlists))
+        })
+```
+
 379

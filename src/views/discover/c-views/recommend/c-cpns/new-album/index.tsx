@@ -38,12 +38,14 @@ const NewAlbum:FC<IProps> = () => {
                 <Carousel ref={bannerRef} dots={false} speed={2000}>
                     {
                         [0,1].map(item => {
-                            return <div className='album-list' key={item}>
-                                {
-                                    albums.slice(item*5,(item+1) * 5).map(album => {
-                                        return <NewAlbumItem key={album.id} itemData={album}/>
-                                    })
-                                }
+                            return <div key={item}>
+                                <div className='album-list' key={item}>
+                                    {
+                                        albums.slice(item * 5, (item + 1) * 5).map(album => {
+                                            return <NewAlbumItem key={album.id} itemData={album} />
+                                        })
+                                    }
+                                </div>
                             </div>
                         })
                     }
@@ -55,4 +57,4 @@ const NewAlbum:FC<IProps> = () => {
  );
 };
 
-export default  memo(NewAlbum)
+export default memo(NewAlbum)

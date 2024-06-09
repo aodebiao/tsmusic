@@ -28,3 +28,14 @@ export function getNewAlbum(limit = 10){
         headers:new AxiosHeaders()
     })
 }
+
+
+export function getPlayListDetail(id:number){
+    return hyRequest.get({
+        url:'/playlist/detail',
+        params:{
+            id
+        },
+        headers:new AxiosHeaders()
+    })
+}

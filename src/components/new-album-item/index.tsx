@@ -1,6 +1,7 @@
 import React,{memo} from 'react';
 import type {FC,ReactNode} from 'react';
 import { AlbumItemWrapper } from '@/components/new-album-item/style'
+import { getImageUrlSize } from '@/utils/format'
 interface IProps {
     children?:ReactNode
     itemData:any
@@ -12,7 +13,14 @@ const NewAlbumItem:FC<IProps> = (props) => {
 
  return (
   <AlbumItemWrapper>
-      {itemData.name}
+      <div className="top">
+          <img src={getImageUrlSize(itemData.picUrl,100)} alt="" />
+          <a href="" className="cover sprite_cover"></a>
+      </div>
+      <div className="bottom">
+          <div className="name">{itemData.name}</div>
+          <div className="artist">{itemData.artist.name}</div>
+      </div>
   </AlbumItemWrapper>
  );
 };
