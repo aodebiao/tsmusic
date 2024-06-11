@@ -11,8 +11,6 @@ const Discover:FC<IProps> = ()=>{
       return  <div>
           <div>
             <NavBar/>
-
-
           </div>
           <Suspense fallback={"llllllllll"}>
               <Outlet/>
